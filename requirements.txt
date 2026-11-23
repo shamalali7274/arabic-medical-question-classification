@@ -4,4 +4,8 @@ scikit-learn
 matplotlib
 openpyxl
 nltk
+arabic-reshaper
+python-bidi
+jupyter
+nbformat
 pytest

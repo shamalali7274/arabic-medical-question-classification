@@ -6,3 +6,4 @@ __pycache__/
 *.pkl
 .env
 .pytest_cache/
+*_executed.ipynb
