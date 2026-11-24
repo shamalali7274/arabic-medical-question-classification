@@ -32,3 +32,12 @@ def test_apply_clean_adds_clean_text_column_without_touching_input():
     out = apply_clean(df, "light")
     assert Columns.CLEAN in out.columns and Columns.CLEAN not in df.columns
     assert len(out) == len(df)
+
+
+def test_apply_quality_fixes_unifies_labels_when_is_train_false(monkeypatch):
+    import quality
+
+    monkeypatch.setattr(quality, "_official_label_names", lambda: ("الطب العام", "أمراض الأطفال"))
+    val = pd.DataFrame({"id": [1, 2], "question": ["سؤال", "سؤال آخر"], "category": ["الطب العام", "امراض الاطفال"]})
+    out = quality.apply_quality_fixes(val, is_train=False)
+    assert len(out) == 2 and out["category"].tolist() == ["الطب العام", "أمراض الأطفال"]
